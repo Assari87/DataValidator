@@ -1,0 +1,68 @@
+<table class="list">
+  <tr>
+    <th> Condition</th>
+    <th> Result</th>
+    <td>
+      <button type="button" (click)="loadDefault()">Load Default Records</button>
+    </td>
+  </tr>
+  <tr *ngFor="let item of tableInfos; let i= index">
+    <td>
+      <div [innerHTML]="item.toString()"></div>
+    </td>
+    <td>{{item.result}}</td>
+    <td><button type="button" (click)="deleteItem(i)">Delete</button></td>
+  </tr>
+</table>
+<div *ngIf="invalidRecord?.length">
+  <strong>Invalid Records:</strong>
+  <div *ngFor="let inv of invalidRecord">
+    <span style="color: red;" [innerHTML]="inv.toString()"></span>
+  </div>
+</div>
+<br>
+<strong>Add New Record</strong>
+<table>
+  <tr>
+    <td>
+      <input type="number" [(ngModel)]="tableModel.start" name="start" placeholder="Start (empty for &infin;)" />
+    </td>
+    <td>
+      <input type="checkbox" [(ngModel)]="tableModel.inclusiveStart" name="inclusiveStart" /><label
+        for="inclusiveStart">Is
+        Inclusive</label>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <input type="number" [(ngModel)]="tableModel.end" name="end" placeholder="End (empty for &infin;)" />
+    </td>
+    <td>
+      <input type="checkbox" [(ngModel)]="tableModel.inclusiveEnd" name="inclusiveEnd" /><label for="inclusiveEnd">Is
+        Inclusive</label>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <input type="text" [(ngModel)]="tableModel.result" name="result" placeholder="Result" />
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <button (click)="addData()">Add</button>
+    </td>
+  </tr>
+</table>
+<br>
+<strong>
+  Calculate the result
+</strong>
+<br>
+<div *ngIf="isValid()">
+  <input type="number" [(ngModel)]="inputC1" (input)="calculate()" placeholder="Input">
+  Result: {{result}}
+</div>
+<div *ngIf="!isValid()" style="color:red ;">
+  ِData is invalid!
+</div>
